@@ -4,11 +4,12 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Documenting JSON Schema</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+		<link rel="stylesheet" href="dist/theme/serif.css">
+		<link rel="stylesheet" href="custom-style.css">
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
@@ -16,8 +17,118 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<h2> Generating Static Site from JSON Schema </h2>
+					<div class="author">
+						<a href="https://kduwadi.com" target="_blank"> Kapil Duwadi </a>
+						<p> Software Engineer - Grid Edge Solutions </p>
+						<p> July 11, 2025 </p>
+					</div>
+				</section>
+				<section>
+					<h3> Agenda </h3>
+					<ul>
+						<li> Introduction to JSON Schema </li>
+						<li> Generating Static Site </li>
+						<li> Conclusion </li>
+					</ul>
+				</section>
+				<section >
+					<section>
+						<h3> Introduction to JSON Schema </h3>
+					<p> JSON Schema is a powerful tool for validating and documenting JSON data structures. </p>
+					<p> It provides a way to define the structure, required fields, and data types of JSON objects. </p>
+					</section>
+					<section>
+						<h4> Example JSON Schema </h4>
+						<pre><code class="json">
+	{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "Person",
+	"type": "object",
+	"properties": {	
+		"name": {
+		"type": "string",
+		"description": "The person's name"
+		},
+		"age": {
+		"type": "integer",
+		"description": "The person's age"
+		},
+		"email": {
+		"type": "string",
+		"format": "email",
+		"description": "The person's email address"
+		}
+	},
+	"required": ["name", "age"]
+	}
+						</code></pre>
+					</section>
+					<section>
+						<p> Sample JSON Schema validation in Python. </p>
+						<pre><code class="python">
+	import json
+	from jsonschema import validate, ValidationError
+	# Define the JSON Schema
+	schema = {
+		"$schema": "http://json-schema.org/draft-07/schema#",	
+		"title": "Person",
+		"type": "object",
+		"properties": {
+			"name": {
+				"type": "string",
+				"description": "The person's name"
+			},
+			"age": {
+				"type": "integer",
+				"description": "The person's age"
+			},
+			"email": {
+				"type": "string",
+				"format": "email",
+				"description": "The person's email address"
+			}
+		},
+		"required": ["name", "age"]
+	}
+	# Sample JSON data
+	data = {
+		"name": "John Doe",
+		"age": 30,
+	}
+	# Validate the data against the schema
+	try:
+		validate(instance=data, schema=schema)
+		print("JSON data is valid.")
+	except ValidationError as e:
+		print("JSON data is invalid:", e.message)
+						</code></pre>
+
+					</section>
+				</section>
+					<section>
+						<section>
+						<h3> Generating Static Site </h3>
+						<ul>
+							<li> Generating markdown files (Mdutils library can save time) by parsing json schema in Python </li>
+							<li> Using MkDocs and Mike to host and version your documentation. </li>
+							<li> Integrating all in CICD pipeline.</li>
+						</ul>
+
+					</section>
+					<section data-background-iframe="https://pnnl.github.io/IRA-Rebates-API/latest/" data-background-interactive>
+					</section>
+					<section>
+						<p> Repository : <a href="https://github.com/pnnl/IRA-Rebates-API" target="_blank"> https://github.com/pnnl/IRA-Rebates-API </a></p>
+					</section>
+					
+				</section>
+				<section>
+					<h3> Conclusion </h3>
+					<p> JSON Schema is a powerful tool for validating and documenting JSON data structures. </p>
+					<p> Generating static sites from JSON Schema can help in creating user-friendly documentation. </p>
+					<p> Tools like MkDocs and Mike can simplify the process of hosting and versioning documentation. </p>
 			</div>
 		</div>
 
